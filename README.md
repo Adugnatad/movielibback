@@ -26,4 +26,4 @@ npm install
 Backend deployed on vercel serverless functions and accessible from movie library site
 
 # Usage
-After running the development server, you can view the app at http://localhost:3000/
+After running the development server, you can access the backend at http://localhost:3000/
