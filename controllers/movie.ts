@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Movie from "../models/movie.model";
+import { Movie } from "../models";
 import { check, validationResult } from "express-validator";
 
 export const getMovies = async (req: Request, res: Response) => {
