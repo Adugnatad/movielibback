@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Movie } from "../models";
+import { Movie } from "../sequelize";
 import { check, validationResult } from "express-validator";
 
 export const getMovies = async (req: Request, res: Response) => {

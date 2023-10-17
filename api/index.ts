@@ -4,6 +4,7 @@ import movie_routes from "../router/movie.router";
 import cors from "cors";
 import http from "http";
 import fs from "fs";
+import user_router from "../router/user.router";
 
 const app = express();
 app.use(express.json());
@@ -11,6 +12,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/movie", movie_routes);
+app.use("/signup", user_router);
 
 app.use((req, res) => {
   res.status(405).send();

@@ -7,8 +7,10 @@ export const sequelize = new Sequelize("adugna", "root", "admin", {
   dialectModule: mysql2,
 });
 
-import Movie from "./movie.model";
-import User from "./user.model";
+import Movie from "./models/movie.model";
+import User from "./models/user.model";
+import Profiles from "./models/profile.model";
+import { applyRelationships } from "./relations";
 
 // export const sequelize = new Sequelize(process.env.DATABASE_URL, {
 //   dialect: "mysql",
@@ -18,5 +20,8 @@ import User from "./user.model";
 //   },
 // });
 
+applyRelationships();
+
 sequelize.sync();
-export { Movie, User };
+
+export { Movie, User, Profiles };

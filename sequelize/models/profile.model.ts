@@ -1,28 +1,30 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "./index";
+import { sequelize } from "../index";
 
-const User = sequelize.define("User", {
+const Profiles = sequelize.define("Profile", {
   id: {
     allowNull: false,
     autoIncrement: true,
     primaryKey: true,
     type: DataTypes.INTEGER,
   },
-  username: {
-    allowNull: false,
-    unique: true,
-    type: DataTypes.STRING,
-  },
-  password: {
+  name: {
     allowNull: false,
     type: DataTypes.STRING,
   },
-  passwordResetToken: {
+  gender: {
+    allowNull: false,
+    type: DataTypes.ENUM("MALE", "FEMALE"),
+  },
+  location: {
     type: DataTypes.STRING,
   },
-  passwordResetExpires: {
-    type: DataTypes.DATE,
+  website: {
+    type: DataTypes.STRING,
+  },
+  picture: {
+    type: DataTypes.STRING,
   },
 });
 
-export default User;
+export default Profiles;

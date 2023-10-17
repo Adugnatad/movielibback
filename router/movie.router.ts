@@ -11,8 +11,7 @@ movie_routes.use((req: Request, res: Response, next: NextFunction) => {
 
 movie_routes
   .get("/", movieController.getMovies)
-  .post("/", movieController.postMovie);
-movie_routes
+  .post("/", movieController.postMovie)
   .put("/:id", movieController.updateMovie)
   .delete("/:id", movieController.deleteMovieId);
 
