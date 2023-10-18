@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../index";
 
-const Profiles = sequelize.define("Profile", {
+const Profile = sequelize.define("Profile", {
   id: {
     allowNull: false,
     autoIncrement: true,
@@ -27,4 +27,4 @@ const Profiles = sequelize.define("Profile", {
   },
 });
 
-export default Profiles;
+export default Profile;

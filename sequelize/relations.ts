@@ -1,7 +1,7 @@
-import { User, Profiles } from ".";
+import { User, Profile } from ".";
 
 export const applyRelationships = () => {
-  Profiles.hasOne(User, {
+  User.hasOne(Profile, {
     onDelete: "CASCADE",
   });
 };

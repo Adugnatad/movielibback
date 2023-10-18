@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
-import { User, Profiles } from "../sequelize";
+import { User, Profile } from "../sequelize";
 import { check, validationResult } from "express-validator";
-import { hash } from "../config.ts/hash";
+import { checkHash, hash } from "../config.ts/hash";
+import { generateToken } from "../config.ts/jwtToken";
 
 export const signup = async (req: Request, res: Response) => {
   const { username, password, Full_Name, gender, location, website } = req.body;
@@ -27,25 +28,28 @@ export const signup = async (req: Request, res: Response) => {
     if (u) {
       res.status(403).send("Username already exists");
     } else {
-      await Profiles.create({
-        name: Full_Name,
-        gender: gender,
-        location: location,
-        website: website,
-        picture: "",
+      User.create({
+        username: username,
+        password: hashedPassword,
       })
-        .then((profile: any) => {
-          User.create({
-            username: username,
-            password: hashedPassword,
-            ProfileId: profile.id,
-          })
 
-            .then((user: any) => {
+        .then((user: any) => {
+          Profile.create({
+            name: Full_Name,
+            gender: gender,
+            location: location,
+            website: website,
+            picture: "",
+            UserId: user.id,
+          })
+            .then((profile: any) => {
               res.json({
                 id: user.id,
                 username: user.username,
-                profile: user.profileId,
+                fullName: profile.Full_Name,
+                gender: profile.gender,
+                location: profile.location,
+                website: profile.website,
               });
             })
             .catch((err) => {
@@ -63,7 +67,24 @@ export const signup = async (req: Request, res: Response) => {
   }
 };
 
-export const getUser = async (req: Request, res: Response) => {
-  const users = await User.findAll({ include: Profiles });
-  res.json(users);
+export const login = async (req: Request, res: Response) => {
+  const { username, password } = req.body;
+
+  const user: any = await User.findOne({
+    where: {
+      username: username,
+    },
+  });
+
+  if (user) {
+    const passwordCheck = checkHash(password, user.password);
+    if (passwordCheck) {
+      const token = generateToken(user.username);
+      res.status(200).json({ token });
+    } else {
+      res.status(401).send("Invalid Credentials");
+    }
+  } else {
+    res.status(400).send("User not found!");
+  }
 };

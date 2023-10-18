@@ -9,7 +9,7 @@ export const sequelize = new Sequelize("adugna", "root", "admin", {
 
 import Movie from "./models/movie.model";
 import User from "./models/user.model";
-import Profiles from "./models/profile.model";
+import Profile from "./models/profile.model";
 import { applyRelationships } from "./relations";
 
 // export const sequelize = new Sequelize(process.env.DATABASE_URL, {
@@ -24,4 +24,4 @@ applyRelationships();
 
 sequelize.sync();
 
-export { Movie, User, Profiles };
+export { Movie, User, Profile };

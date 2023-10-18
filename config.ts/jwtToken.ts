@@ -1,6 +1,14 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { secret_key } from "../util/secrets";
+import { secret_key } from "./secrets";
+
+export const generateToken = (username: string) => {
+  const payload = {
+    username: username,
+  };
+  const token = jwt.sign(payload, secret_key, { expiresIn: "1h" });
+  return token;
+};
 
 export const verifyToken = (
   req: Request,
