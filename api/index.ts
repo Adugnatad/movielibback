@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/movie", movie_routes);
-app.use("/signup", user_router);
+app.use("/auth", user_router);
 
 app.use((req, res) => {
   res.status(405).send();
